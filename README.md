@@ -240,24 +240,3 @@ curl --fail http://localhost:5050/api/system/ready
 直观的运维数据看板，实时展示系统请求量、Token 消耗统计、知识库检索频次与长任务排队状态，为容量规划和成本核算提供数据支撑。
 
 </details>
-
-## 参与贡献
-
-欢迎提交 Issue、改进文档、修复 Bug 和贡献功能。开发流程见 [CONTRIBUTING.md](CONTRIBUTING.md)，完整规范见 [文档参与指南](docs/develop-guides/contributing.md)。
-
-感谢所有贡献者的支持！
-
----
-
-平台 的实现和文档参考了以下优秀的开源项目：
-
-- [LightRAG](https://github.com/HKUDS/LightRAG)：早期图谱构建和检索思路；
-- [DeepAgents](https://github.com/langchain-ai/deepagents)：深度智能体框架；
-- [DeerFlow](https://github.com/bytedance/deer-flow)：沙盒智能体架构思路；
-- [RAGFlow](https://github.com/infiniflow/ragflow)：文档分块策略；
-- [LangGraph](https://github.com/langchain-ai/langgraph)：智能体编排基础；
-- [QwenPaw](https://github.com/agentscope-ai/QwenPaw)：模型配置和个人文件区域设计。
-
-## 许可证
-
-平台 本体采用 MIT License，详见 [LICENSE](LICENSE)。Docker Compose 引入的第三方组件遵循各自的许可证；再分发和商业部署前，请按实际镜像版本核对上游许可和源码义务，相关边界见[生产部署指南](docs/advanced/deployment.md)。
