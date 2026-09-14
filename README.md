@@ -1,6 +1,5 @@
-# 知识工作台
+# 车联网知识工作台
 
-[使用文档](docs/index.md) · [快速开始](docs/intro/quick-start.md) · [English](README.en.md)
 
 平台 是一个可私有部署的多租户知识智能体平台。它把知识库检索、知识图谱、LangGraph 多智能体编排、MCP/Skills、沙盒工具和权限管理放进同一个工作区。
 
@@ -24,55 +23,6 @@
 | 文档处理 | MinerU · PaddleX · RapidOCR                   |
 | 部署     | Docker Compose                                  |
 
-## 快速启动
-
-### 前置条件
-
-安装 [Docker Engine](https://docs.docker.com/get-docker/) 和 Docker Compose，并准备一个可用的大模型 API。当前仓库默认配置对应 `v0.7.2`，仍处于 Beta 阶段。
-
-### 1. 获取代码并初始化
-
-将 `REPOSITORY_URL` 设置为你的公共仓库地址；已有源码时直接在项目根目录运行初始化脚本。
-
-```bash
-git clone --branch v0.7.2 --depth 1 "${REPOSITORY_URL}" workspace
-cd workspace
-
-# Linux/macOS
-./scripts/init.sh
-
-# Windows PowerShell
-.\scripts\init.ps1
-```
-
-初始化脚本会创建 `.env`、读取 SiliconFlow API Key，并为 JWT、API Key 派生和 Sandbox provisioner 生成独立的安全密钥。也可以手动复制 `.env.template` 并填写这些值。
-
-### 2. 启动开发环境
-
-```bash
-docker compose up --build -d
-```
-
-查看服务状态：
-
-```bash
-docker compose ps
-curl --fail http://localhost:5050/api/system/ready
-```
-
-返回的 `status` 为 `ready` 后，打开 [http://localhost:5173](http://localhost:5173)，按页面提示初始化超级管理员并登录。API 文档位于 [http://localhost:5050/docs](http://localhost:5050/docs)。
-
-从 v0.7.1 升级到当前版本时，不能直接执行 `docker compose up`。请先阅读[生产部署与升级](docs/advanced/deployment.md)，在停机窗口完成备份和迁移。
-
-## 文档导航
-
-- [项目介绍](docs/intro/project-overview.md)：了解能力、概念和系统边界。
-- [快速开始](docs/intro/quick-start.md)：从零启动本地环境。
-- [模型配置](docs/intro/model-config.md)：接入聊天、嵌入和重排模型。
-- [知识库教程](docs/intro/knowledge-base.md)：创建知识库并验证检索。
-- [智能体开发](docs/agents/agents-config.md)：配置 Agent、工具和扩展。
-- [生产部署](docs/advanced/deployment.md)：部署、升级、备份和排障。
-- [版本变更记录](docs/develop-guides/changelog.md)：查看已发布变更。
 
 ## 能力展示
 
@@ -139,104 +89,4 @@ curl --fail http://localhost:5050/api/system/ready
 
 </details>
 
-### 03 · 知识图谱与知识导图
 
-将非结构化文档深层提炼为“实体-关系”图谱网络。既支持在交互式拓扑图谱中探索实体关联，也支持根据文件层级和主题元数据自动生成清晰的知识导图。
-
-- 从知识库中自动抽取实体与关系，在 Milvus/Neo4j 中构建知识图谱索引。
-- 支持按关键词搜索实体、点击节点查看属性详情，并高亮探索关联子图。
-- 结合知识库文件元数据自动生成多层级知识导图，快速纵览业务领域全景。
-
-<details>
-<summary><strong>展开详细截图：图谱构建、节点关系与知识导图</strong></summary>
-
-**图谱构建与索引状态**
-
-解析文档时自动执行实体识别与关系抽取，构建面向具体业务领域的知识图谱。可直观查看实体总数、关系边数量与构建进度。
-
-**知识导图**
-
-基于文件的目录结构、分类标签与元数据特征，自动生成结构化的主题脑图/知识导图，方便用户以树状脉络快速浏览海量知识内容。
-
-</details>
-
-### 04 · 多智能体与扩展生态
-
-一个 Agent 可以灵活组合模型、提示词、知识库、外部工具与专用子智能体。面对复杂任务，主智能体负责规划拆解，多个 SubAgents 分头异步并行执行，Skills 与 MCP 协议提供源源不断的能力扩展。
-
-- 自由配置 Agent 的基座模型、知识挂载、工具调用与系统提示词。
-- 支持多个 SubAgents 异步并行执行深度调研、数据分析或内容生成。
-- 原生兼容 Skills 插件机制与 MCP（Model Context Protocol）标准协议。
-
-<details>
-<summary><strong>展开详细截图：Agent 配置、子智能体与扩展能力</strong></summary>
-
-**Agent 配置与行为定制**
-
-智能体提供丰富的模块化配置项，可以按需组合大模型、挂载的知识库、自定义 Tools、MCP 服务、前置提示词与子智能体，并支持灵活配置在部门或团队内的共享可见范围。
-
-**子智能体并行执行**
-
-支持主智能体将复杂的多步骤任务拆解后，派出多个专属 SubAgent 异步并行跑任务（例如分头检索不同领域的法规、分别撰写报告不同章节），全程互不阻塞，执行完毕后自动归拢汇总。
-
-**Skills、MCP 与生态扩展**
-
-统一接入并管理 Skills 扩展技能与 MCP Servers 外部协议，支持针对不同角色分配权限与使用范围；借助渐进式披露机制，在真正需要时按需动态解析并加载工具。Skill 在线安装支持 skills.sh 以及魔搭社区的 skill。
-
-可以查看并在线编辑 skill
-
-可以配置 skill 权限和依赖
-
-内置工具列表
-
-</details>
-
-### 05 · 沙盒工作区与文件产物
-
-每个任务都在安全隔离的沙盒文件系统中进行读写操作。智能体不仅能在对话中回答问题，还能把分析研究成果沉淀为 Markdown 文档、数据表格、HTML 页面或可执行代码，并在工作区中随时查看与下载。
-
-- 任务在独立的沙盒目录中运行，保障文件与数据安全隔离。
-- 支持一键生成图文报告、数据分析图表、Web 页面等多种格式产物。
-- 浏览器内原生支持各类文件在线交互预览，支持一键打包下载。
-
-<details>
-<summary><strong>展开详细截图：文件管理、在线预览与任务交付</strong></summary>
-
-**工作区文件管理**
-
-可视化管理任务运行过程中读取与产生的所有文件，清晰展示目录层级、文件类型与体积大小，方便在会话之间复用中间产物。
-
-**HTML、PDF、图表与代码在线预览**
-
-智能体生成的报告文档、可视化 HTML 网页、图片图表或代码脚本，无需下载即可直接在浏览器内置的预览器中渲染并进行交互查看。markdown 还支持在线编辑保存。
-
-**对话中的文件交付**
-
-任务执行完毕后，对话气泡中会生成结构化的交付卡片，直观呈现文件摘要、格式与操作按钮，支持直接打开预览或保存到本地。
-
-</details>
-
-### 06 · 团队治理与运行管理
-
-专为企业和团队多人协作打造。管理员可以集中管理成员与部门组织架构、统一配置模型接入凭据与 API Key，并通过监控看板全面掌握平台的运行状况与调用指标。
-
-- 支持按租户、用户与部门配置知识库、Agent 以及功能的读写权限。
-- 集中配置和调度多供应商的大模型能力，统一管理 API Key 凭据。
-- 实时统计分析使用量、请求趋势与资源负载，保障服务稳定运行。
-
-<details>
-<summary><strong>展开详细截图：权限、模型与运行数据</strong></summary>
-
-**用户、部门与细粒度权限体系**
-
-提供符合企业组织架构的多租户权限体系，支持按照部门或用户组精确控制对知识库、智能体、工具和沙盒工作区的访问与编辑权限。
-
-**模型供应商与统一凭据管理**
-
-支持接入主流大模型供应商（OpenAI、Anthropic、DeepSeek、Qwen、本地 Ollama/vLLM 等），集中维护 API Key 凭据并统一分配模型能力，密钥对普通成员完全脱敏。
-
-**Dashboard 与系统运行监控**
-
-直观的运维数据看板，实时展示系统请求量、Token 消耗统计、知识库检索频次与长任务排队状态，为容量规划和成本核算提供数据支撑。
-
-</details>
