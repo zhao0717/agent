@@ -2,7 +2,6 @@
 
 围绕车联网研究中的资料整理、论文阅读、方法对比与综述撰写，将大模型、检索增强生成（RAG）、知识图谱和多智能体协作整合到一个可私有部署的研究工作台。
 
-[快速启动](#快速启动) · [完成第一次文献调研](#完成第一次文献调研) · [系统架构](#系统架构) · [使用文档](docs/index.md) · [English / 通用平台说明](README.en.md)
 
 ## 项目简介
 
@@ -188,7 +187,6 @@ flowchart TB
 - **流式交互与恢复**：前端通过 SSE 接收进度，并结合持久化状态处理断线恢复与终态补偿。
 - **访问与路径边界**：后端校验资源可见性，工作区和沙盒在文件访问边界校验路径；前端隐藏入口不代替授权。
 
-具体运行链路、服务职责与约束见 [ARCHITECTURE.md](ARCHITECTURE.md)。
 
 ## 快速启动
 
@@ -199,7 +197,6 @@ flowchart TB
 - 能访问镜像仓库及所选模型服务的网络。
 - 需要联网调研时，准备支持的搜索服务密钥。
 
-默认开发拓扑不要求 GPU；Compose 中的本地 MinerU、PaddleX 服务有额外 GPU 要求，详见[文档处理与 OCR](docs/advanced/document-processing.md)。模型调用、搜索和外部服务可能产生费用。
 
 ### 1. 获取项目
 
@@ -224,7 +221,6 @@ Windows PowerShell：
 .\scripts\init.ps1
 ```
 
-初始化脚本以 SiliconFlow 为例收集模型密钥，可选配置网页搜索，并创建或补齐 `.env`、生成独立的安全密钥、拉取基础镜像。使用其他模型服务时，可从 [.env.template](.env.template) 手动配置，操作说明见[快速开始](docs/intro/quick-start.md)与[模型配置](docs/intro/model-config.md)。
 
 不要提交 `.env` 或真实密钥；已有部署升级时保留原有安全密钥。
 
@@ -261,7 +257,6 @@ Invoke-RestMethod http://localhost:5050/api/system/ready
 
 首次打开工作台时，按页面提示初始化超级管理员。若调整了部署端口，使用实际配置的地址。
 
-这是开发环境启动方式。生产部署、备份与迁移请阅读[生产部署与升级](docs/advanced/deployment.md)；从 `v0.7.1` 升级前需要完成对应迁移，不能直接复用旧数据启动。
 
 ## 完成第一次文献调研
 
@@ -276,7 +271,6 @@ Invoke-RestMethod http://localhost:5050/api/system/ready
 3. 在“检索测试”中输入文献中的特定术语或问题，核对命中文件和原文片段。
 4. 根据实际效果选择向量、关键词或混合检索，需要时启用重排。
 
-具体操作见[知识库教程](docs/intro/knowledge-base.md)。文件上传成功不代表已经完成索引。
 
 ### 3. 配置研究智能体
 
